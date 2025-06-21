@@ -32,7 +32,7 @@ export default function LoginPage() {
     })
 
     if (res.ok) {
-      router.push("/fire-enrich")
+      router.push("/")
     } else {
       setError("Invalid password")
     }
