@@ -3,10 +3,10 @@ const isUnlimitedMode = process.env.FIRE_ENRICH_UNLIMITED === 'true' ||
 
 export const FIRE_ENRICH_CONFIG = {
   CSV_LIMITS: {
-    MAX_ROWS: isUnlimitedMode ? Infinity : 15,
-    MAX_COLUMNS: isUnlimitedMode ? Infinity : 5,
+    MAX_ROWS: Infinity,
+    MAX_COLUMNS: Infinity,
   },
   REQUEST_LIMITS: {
-    MAX_FIELDS_PER_ENRICHMENT: isUnlimitedMode ? 50 : 10,
+    MAX_FIELDS_PER_ENRICHMENT: 50,
   },
 } as const; 
