@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { AgentEnrichmentStrategy } from '@/lib/strategies/agent-enrichment-strategy';
 import type { EnrichmentRequest, RowEnrichmentResult } from '@/lib/types';
 import { loadSkipList, shouldSkipEmail, getSkipReason } from '@/lib/utils/skip-list';
+import { FIRE_ENRICH_CONFIG } from '@/lib/config';
 
 // Use Node.js runtime for better compatibility
 export const runtime = 'nodejs';
@@ -30,9 +31,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!fields || fields.length === 0 || fields.length > 10) {
+    if (!fields || fields.length === 0 || fields.length > FIRE_ENRICH_CONFIG.REQUEST_LIMITS.MAX_FIELDS_PER_ENRICHMENT) {
       return NextResponse.json(
-        { error: 'Please provide 1-10 fields to enrich' },
+        { error: `Please provide 1-${FIRE_ENRICH_CONFIG.REQUEST_LIMITS.MAX_FIELDS_PER_ENRICHMENT} fields to enrich` },
         { status: 400 }
       );
     }
